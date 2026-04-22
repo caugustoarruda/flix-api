@@ -12,7 +12,7 @@ def genre_create_list_view(request):
         new_genre = Genre(name=data.get('name'))
         new_genre.save()
         return JsonResponse(
-            {"id": new_genre.id, "name": new_genre.name}, safe=False, status=201
+            {"id": new_genre.id, "name": new_genre.name}, status=201
         )
 
     elif request.method == 'GET':
@@ -27,6 +27,19 @@ def genre_create_list_view(request):
 def genre_detail_view(request, pk):
     data = get_object_or_404(Genre, pk=pk)
 
-    return JsonResponse(
-            {"id": data.id, "name": data.name}, safe=False
-        )
+    if request.method == 'GET':
+        return JsonResponse(
+                {"id": data.id, "name": data.name}
+            )
+    elif request.method == 'PUT':
+        body = json.loads(request.body.decode('utf-8'))
+        data.name = body.get('name')
+        data.save()
+        return JsonResponse(
+                {"id": data.id, "name": data.name}
+            )
+    elif request.method == 'DELETE':
+        data.delete()
+        return JsonResponse(
+                {"message": "Genre deleted"}
+            )
