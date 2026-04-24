@@ -8,6 +8,6 @@ class GenreCreateListView(generics.ListCreateAPIView):
     serializer_class = GenreSerializer
     
 
-class RetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
+class GenreRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Genre.objects.all()
     serializer_class = GenreSerializer
