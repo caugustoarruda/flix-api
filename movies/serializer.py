@@ -13,7 +13,7 @@ class MovieSerializer(serializers.ModelSerializer):
         stars_ = 0
         for review in reviews:
             stars_ += review.stars
-        return stars_/len(reviews)
+        return round(stars_/len(reviews), 1)
 
     class Meta:
         model = Movie
